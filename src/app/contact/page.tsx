@@ -1,9 +1,6 @@
-import type { Metadata } from "next";
+"use client";
 
-export const metadata: Metadata = {
-    title: "Contact | FIELD. Guild",
-    description: "Get in touch with FIELD. Free Fire guild. Join our Discord, WhatsApp, or reach us via email.",
-};
+import { useState } from "react";
 
 const contactMethods = [
     {
@@ -20,10 +17,11 @@ const contactMethods = [
     },
     {
         title: "WhatsApp",
-        description: "Connect with our leadership team directly via WhatsApp group for quick updates.",
-        link: "https://wa.me/917011023015",
-        buttonText: "Join Group",
+        description: "Connect with our leadership team directly via WhatsApp for quick updates.",
+        link: "#whatsapp",
+        buttonText: "Contact Us",
         color: "#25D366",
+        isWhatsApp: true,
         icon: (
             <svg style={{ width: '32px', height: '32px' }} fill="currentColor" viewBox="0 0 24 24">
                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
@@ -42,6 +40,29 @@ const contactMethods = [
             </svg>
         )
     },
+];
+
+const whatsappContacts = [
+    {
+        title: "Guild Leader",
+        name: "Leader",
+        phone: "919572734854",
+        icon: (
+            <svg style={{ width: '24px', height: '24px' }} fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" />
+            </svg>
+        )
+    },
+    {
+        title: "Acting Guild Leader",
+        name: "Acting Leader",
+        phone: "917011023015",
+        icon: (
+            <svg style={{ width: '24px', height: '24px' }} fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" />
+            </svg>
+        )
+    }
 ];
 
 const faqs = [
@@ -64,8 +85,167 @@ const faqs = [
 ];
 
 export default function ContactPage() {
+    const [showWhatsAppModal, setShowWhatsAppModal] = useState(false);
+
     return (
         <div style={{ paddingTop: '60px', minHeight: '100vh', backgroundColor: '#0a0a0a' }}>
+            {/* WhatsApp Contact Modal */}
+            {showWhatsAppModal && (
+                <div
+                    style={{
+                        position: 'fixed',
+                        inset: 0,
+                        backgroundColor: 'rgba(0, 0, 0, 0.85)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        zIndex: 1000,
+                        padding: '1rem',
+                        backdropFilter: 'blur(8px)'
+                    }}
+                    onClick={() => setShowWhatsAppModal(false)}
+                >
+                    <div
+                        style={{
+                            background: 'linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%)',
+                            border: '2px solid rgba(37, 211, 102, 0.4)',
+                            borderRadius: '16px',
+                            padding: '2rem',
+                            maxWidth: '400px',
+                            width: '100%',
+                            position: 'relative',
+                            boxShadow: '0 0 40px rgba(37, 211, 102, 0.2)'
+                        }}
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        {/* Close Button */}
+                        <button
+                            onClick={() => setShowWhatsAppModal(false)}
+                            style={{
+                                position: 'absolute',
+                                top: '12px',
+                                right: '12px',
+                                background: 'transparent',
+                                border: 'none',
+                                color: '#888',
+                                cursor: 'pointer',
+                                padding: '4px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }}
+                        >
+                            <svg style={{ width: '24px', height: '24px' }} fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                            </svg>
+                        </button>
+
+                        {/* Modal Header */}
+                        <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+                            <div
+                                style={{
+                                    width: '60px',
+                                    height: '60px',
+                                    background: 'linear-gradient(135deg, #25D36633 0%, #25D36611 100%)',
+                                    border: '2px solid #25D36650',
+                                    borderRadius: '50%',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    margin: '0 auto 1rem',
+                                    color: '#25D366'
+                                }}
+                            >
+                                <svg style={{ width: '28px', height: '28px' }} fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                                </svg>
+                            </div>
+                            <h3
+                                style={{
+                                    fontFamily: "'Orbitron', sans-serif",
+                                    fontSize: '1.25rem',
+                                    fontWeight: 700,
+                                    color: '#ffffff',
+                                    marginBottom: '0.5rem'
+                                }}
+                            >
+                                Contact via WhatsApp
+                            </h3>
+                            <p style={{ color: '#888', fontSize: '0.9rem' }}>
+                                Choose who you&apos;d like to contact
+                            </p>
+                        </div>
+
+                        {/* Contact Options */}
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                            {whatsappContacts.map((contact) => (
+                                <a
+                                    key={contact.phone}
+                                    href={`https://wa.me/${contact.phone}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '1rem',
+                                        padding: '1rem 1.25rem',
+                                        background: 'linear-gradient(90deg, #1a1a1a 0%, #0f0f0f 100%)',
+                                        border: '1px solid rgba(37, 211, 102, 0.3)',
+                                        borderRadius: '10px',
+                                        textDecoration: 'none',
+                                        transition: 'all 0.3s ease'
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.borderColor = '#25D366';
+                                        e.currentTarget.style.boxShadow = '0 0 20px rgba(37, 211, 102, 0.2)';
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.borderColor = 'rgba(37, 211, 102, 0.3)';
+                                        e.currentTarget.style.boxShadow = 'none';
+                                    }}
+                                >
+                                    <div
+                                        style={{
+                                            width: '45px',
+                                            height: '45px',
+                                            background: 'linear-gradient(135deg, #25D36633 0%, #25D36611 100%)',
+                                            border: '1px solid #25D36650',
+                                            borderRadius: '50%',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            color: '#25D366',
+                                            flexShrink: 0
+                                        }}
+                                    >
+                                        {contact.icon}
+                                    </div>
+                                    <div style={{ flex: 1 }}>
+                                        <h4
+                                            style={{
+                                                fontFamily: "'Orbitron', sans-serif",
+                                                fontSize: '0.95rem',
+                                                fontWeight: 600,
+                                                color: '#ffffff',
+                                                marginBottom: '0.25rem'
+                                            }}
+                                        >
+                                            {contact.title}
+                                        </h4>
+                                        <p style={{ color: '#888', fontSize: '0.8rem' }}>
+                                            Tap to chat on WhatsApp
+                                        </p>
+                                    </div>
+                                    <svg style={{ width: '20px', height: '20px', color: '#25D366' }} fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" />
+                                    </svg>
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {/* Hero Section */}
             <section
                 style={{
@@ -205,27 +385,50 @@ export default function ContactPage() {
                                     <p style={{ color: '#888888', marginBottom: '1.5rem', lineHeight: 1.6, fontSize: '0.9rem' }}>
                                         {method.description}
                                     </p>
-                                    <a
-                                        href={method.link}
-                                        target={method.link.startsWith("http") ? "_blank" : undefined}
-                                        rel={method.link.startsWith("http") ? "noopener noreferrer" : undefined}
-                                        style={{
-                                            display: 'inline-block',
-                                            background: `linear-gradient(135deg, ${method.color} 0%, ${method.color}cc 100%)`,
-                                            color: method.color === '#f0c030' ? '#0a0a0a' : '#ffffff',
-                                            fontFamily: "'Orbitron', sans-serif",
-                                            fontWeight: 700,
-                                            padding: '0.75rem 1.5rem',
-                                            borderRadius: '4px',
-                                            textDecoration: 'none',
-                                            textTransform: 'uppercase',
-                                            letterSpacing: '0.05em',
-                                            fontSize: '0.8rem',
-                                            boxShadow: `0 0 20px ${method.color}40`
-                                        }}
-                                    >
-                                        {method.buttonText}
-                                    </a>
+                                    {method.isWhatsApp ? (
+                                        <button
+                                            onClick={() => setShowWhatsAppModal(true)}
+                                            style={{
+                                                display: 'inline-block',
+                                                background: `linear-gradient(135deg, ${method.color} 0%, ${method.color}cc 100%)`,
+                                                color: '#ffffff',
+                                                fontFamily: "'Orbitron', sans-serif",
+                                                fontWeight: 700,
+                                                padding: '0.75rem 1.5rem',
+                                                borderRadius: '4px',
+                                                border: 'none',
+                                                cursor: 'pointer',
+                                                textTransform: 'uppercase',
+                                                letterSpacing: '0.05em',
+                                                fontSize: '0.8rem',
+                                                boxShadow: `0 0 20px ${method.color}40`
+                                            }}
+                                        >
+                                            {method.buttonText}
+                                        </button>
+                                    ) : (
+                                        <a
+                                            href={method.link}
+                                            target={method.link.startsWith("http") ? "_blank" : undefined}
+                                            rel={method.link.startsWith("http") ? "noopener noreferrer" : undefined}
+                                            style={{
+                                                display: 'inline-block',
+                                                background: `linear-gradient(135deg, ${method.color} 0%, ${method.color}cc 100%)`,
+                                                color: method.color === '#f0c030' ? '#0a0a0a' : '#ffffff',
+                                                fontFamily: "'Orbitron', sans-serif",
+                                                fontWeight: 700,
+                                                padding: '0.75rem 1.5rem',
+                                                borderRadius: '4px',
+                                                textDecoration: 'none',
+                                                textTransform: 'uppercase',
+                                                letterSpacing: '0.05em',
+                                                fontSize: '0.8rem',
+                                                boxShadow: `0 0 20px ${method.color}40`
+                                            }}
+                                        >
+                                            {method.buttonText}
+                                        </a>
+                                    )}
                                 </div>
                             </div>
                         ))}
